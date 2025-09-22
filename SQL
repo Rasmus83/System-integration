@@ -1,0 +1,129 @@
+-- ============================================
+-- DATABAS.SQL - RENSA FÖRST, SEN SKAPA ALLT
+-- Kör denna kompletta kod i MySQL/phpMyAdmin
+-- ============================================
+
+-- STEG 1: RENSA GAMLA DATABASER/TABELLER
+DROP TABLE IF EXISTS temperature_readings;
+DROP DATABASE IF EXISTS iot_temperature_db;
+
+-- STEG 2: SKAPA DATABAS OCH TABELL
+CREATE DATABASE iot_temperature_db;
+USE iot_temperature_db;
+
+CREATE TABLE temperature_readings (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    temperature DECIMAL(5,2) NOT NULL,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Index för snabbare sökningar
+CREATE INDEX idx_timestamp ON temperature_readings(timestamp);
+
+-- STEG 3: LÄGG IN TESTDATA
+INSERT INTO temperature_readings (temperature) VALUES 
+(22.5),
+(23.1), 
+(21.8),
+(24.2),
+(22.9),
+(20.3),
+(25.1),
+(23.7),
+(21.6),
+(24.8);
+
+-- STEG 4: TESTA ATT GRUNDDATA FUNGERAR
+SELECT 'TEST: Alla temperaturer' as beskrivning;
+SELECT * FROM temperature_readings ORDER BY timestamp DESC;
+
+SELECT 'TEST: Antal rader' as beskrivning;
+SELECT COUNT(*) as antal_temperaturer FROM temperature_readings;
+
+-- ============================================
+-- QUERIES FÖR BACKEND-PERSONEN ATT ANVÄNDA
+-- ============================================
+
+-- Senaste temperaturmätning
+SELECT 'QUERY: Senaste mätning' as beskrivning;
+SELECT * FROM temperature_readings 
+ORDER BY timestamp DESC 
+LIMIT 1;
+
+-- Senaste 10 mätningar (historik)
+SELECT 'QUERY: Senaste 10 mätningar' as beskrivning;
+SELECT * FROM temperature_readings 
+ORDER BY timestamp DESC 
+LIMIT 10;
+
+-- Alla mätvärden
+SELECT 'QUERY: Alla mätvärden' as beskrivning;
+SELECT * FROM temperature_readings 
+ORDER BY timestamp DESC;
+
+-- ============================================
+-- MEDELVÄRDEN OCH STATISTIK
+-- ============================================
+
+-- Medelvärde alla mätningar
+SELECT 'STATISTIK: Medelvärde alla mätningar' as beskrivning;
+SELECT 
+    ROUND(AVG(temperature), 2) as medel_temp,
+    COUNT(*) as antal_mätningar
+FROM temperature_readings;
+
+-- Min/Max alla mätningar
+SELECT 'STATISTIK: Min/Max alla mätningar' as beskrivning;
+SELECT 
+    MIN(temperature) as min_temp,
+    MAX(temperature) as max_temp,
+    ROUND(AVG(temperature), 2) as medel_temp,
+    COUNT(*) as antal_mätningar
+FROM temperature_readings;
+
+-- Medelvärde senaste 24h (kommer vara alla eftersom testdata är ny)
+SELECT 'STATISTIK: Senaste 24h' as beskrivning;
+SELECT 
+    ROUND(AVG(temperature), 2) as medel_temp_24h,
+    MIN(temperature) as min_temp_24h,
+    MAX(temperature) as max_temp_24h,
+    COUNT(*) as antal_mätningar_24h
+FROM temperature_readings 
+WHERE timestamp >= DATE_SUB(NOW(), INTERVAL 24 HOUR);
+
+-- Medelvärde per timme (för grafer)
+SELECT 'STATISTIK: Per timme' as beskrivning;
+SELECT 
+    HOUR(timestamp) as timme,
+    ROUND(AVG(temperature), 2) as medel_temp,
+    COUNT(*) as antal_mätningar
+FROM temperature_readings 
+WHERE timestamp >= DATE_SUB(NOW(), INTERVAL 24 HOUR)
+GROUP BY HOUR(timestamp)
+ORDER BY timme;
+
+-- ============================================
+-- SLUTTEST - VISA ATT ALLT FUNGERAR
+-- ============================================
+
+SELECT '=== SLUTTEST: DATABAS FÄRDIG ===' as status;
+
+SELECT 'Databasnamn:' as info, DATABASE() as värde;
+
+SELECT 'Antal tabeller:' as info, COUNT(*) as värde 
+FROM information_schema.tables 
+WHERE table_schema = 'iot_temperature_db';
+
+SELECT 'Antal temperaturmätningar:' as info, COUNT(*) as värde 
+FROM temperature_readings;
+
+SELECT 'Senaste temperatur:' as info, 
+       CONCAT(temperature, '°C') as värde,
+       timestamp as när
+FROM temperature_readings 
+ORDER BY timestamp DESC 
+LIMIT 1;
+
+SELECT 'Medel temperatur:' as info, 
+       CONCAT(ROUND(AVG(temperature), 1), '°C') as värde
+FROM temperature_readings;
