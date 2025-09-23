@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>IoT Dashboard</title>
+</head>
+<body>
+<h2>IoT Dashboard</h2>
+
+<h3>Senaste mätvärden</h3>
+<p>Temperatur: <span th:text="${latest.temperature}">0.0</span> °C</p>
+<p>Fuktighet: <span th:text="${latest.humidity}">0.0</span> %</p>
+<p>Tid: <span th:text="${latest.timestamp}">--</span></p>
+
+<h3>Historiska mätvärden</h3>
+<table border="1">
+    <tr>
+        <th>Tid</th>
+        <th>Temperatur</th>
+        <th>Fuktighet</th>
+    </tr>
+    <tr th:each="data : ${history}">
+        <td th:text="${data.timestamp}">--</td>
+        <td th:text="${data.temperature}">0.0</td>
+        <td th:text="${data.humidity}">0.0</td>
+    </tr>
+</table>
+</body>
+</html>
