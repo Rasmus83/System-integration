@@ -1,0 +1,3 @@
+﻿  Main.cpp
+C:\Users\rasmu\Documents\Visual Studio 2022\Projects\Temperature gauge backend bridge\Temperature gauge backend bridge\Main.cpp(44,8): warning C4101: 'bytesWritten': unreferenced local variable
+  Temperature gauge backend bridge.vcxproj -> C:\Users\rasmu\Documents\Visual Studio 2022\Projects\Temperature gauge backend bridge\Debug\Temperature gauge backend bridge.exe

@@ -1,0 +1,7 @@
+﻿  Main.cpp
+C:\Users\rasmu\OneDrive\Dokument\Visual Studio 2022\Projects\Temperature gauge backend bridge\Temperature gauge backend bridge\Main.cpp(31,8): warning C4101: 'bytesWritten': unreferenced local variable
+  Generating code
+  Previous IPDB not found, fall back to full compilation.
+  All 12 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  Temperature gauge backend bridge.vcxproj -> C:\Users\rasmu\OneDrive\Dokument\Visual Studio 2022\Projects\Temperature gauge backend bridge\x64\Release\Temperature gauge backend bridge.exe
