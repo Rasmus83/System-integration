@@ -15,10 +15,10 @@ public class DashboardController {
     @GetMapping("/")
     public String dashboard(Model model) {
         // Mockdata för att testa webbappen
-        List<SensorData> sensorDataList = Arrays.asList(    
-                new SensorData(24.1, 60.1, LocalDateTime.now().minusMinutes(5)),
-                new SensorData(23.9, 59.8, LocalDateTime.now().minusMinutes(10)),
-                new SensorData(24.3, 60.5, LocalDateTime.now().minusMinutes(15))
+        List<SensorData> sensorDataList = Arrays.asList(
+                new SensorData(24.1, LocalDateTime.now().minusMinutes(5)),
+                new SensorData(23.9, LocalDateTime.now().minusMinutes(10)),
+                new SensorData(24.3, LocalDateTime.now().minusMinutes(15))
         );
 
         model.addAttribute("latest", sensorDataList.get(0));
