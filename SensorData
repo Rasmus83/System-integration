@@ -4,16 +4,13 @@ import java.time.LocalDateTime;
 
 public class SensorData {
     private double temperature;
-    private double humidity;
     private LocalDateTime timestamp;
 
-    public SensorData(double temperature, double humidity, LocalDateTime timestamp) {
+    public SensorData(double temperature, LocalDateTime timestamp) {
         this.temperature = temperature;
-        this.humidity = humidity;
         this.timestamp = timestamp;
     }
 
     public double getTemperature() { return temperature; }
-    public double getHumidity() { return humidity; }
     public LocalDateTime getTimestamp() { return timestamp; }
 }
