@@ -94,8 +94,9 @@ void BridgeProgram::run()
 		{
 			readBuffer[bytesRead] = '\0';
 			#ifdef _DEBUG
-			std::cout << readBuffer;
+			std::cout << "Temperature: " << readBuffer;
 			#endif
 		}
 	}
+
 }
