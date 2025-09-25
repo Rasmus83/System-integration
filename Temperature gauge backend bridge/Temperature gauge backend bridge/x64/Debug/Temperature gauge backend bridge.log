@@ -1,0 +1,7 @@
+﻿  Main.cpp
+C:\Users\rasmu\OneDrive\Dokument\Visual Studio 2022\Projects\Temperature gauge backend bridge\Temperature gauge backend bridge\Main.cpp(94,45): warning C4267: 'argument': conversion from 'size_t' to 'DWORD', possible loss of data
+C:\Users\rasmu\OneDrive\Dokument\Visual Studio 2022\Projects\Temperature gauge backend bridge\Temperature gauge backend bridge\Main.cpp(44,8): warning C4101: 'bytesWritten': unreferenced local variable
+  WstringToInt.cpp
+  Generating Code...
+  LINK : C:\Users\rasmu\OneDrive\Dokument\Visual Studio 2022\Projects\Temperature gauge backend bridge\x64\Debug\Temperature gauge backend bridge.exe not found or not built by the last incremental link; performing full link
+  Temperature gauge backend bridge.vcxproj -> C:\Users\rasmu\OneDrive\Dokument\Visual Studio 2022\Projects\Temperature gauge backend bridge\x64\Debug\Temperature gauge backend bridge.exe
