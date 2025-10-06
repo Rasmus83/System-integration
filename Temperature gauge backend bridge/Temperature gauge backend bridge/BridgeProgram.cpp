@@ -5,7 +5,7 @@
 using namespace std::chrono_literals;
 
 BridgeProgram::BridgeProgram(const wchar_t* comPort, const wchar_t* serverName, int serverPort)
-	: timeouts{0}, readBuffer("\n"), bytesRead(1), bytesWritten(0), bufferSize(0)
+	: timeouts{ 0 }, readBuffer("\n"), bytesRead(1), bytesWritten(0), bufferSize(0)
 {
 	hComm = CreateFile(comPort, GENERIC_READ | GENERIC_WRITE, 0, nullptr,
 		OPEN_EXISTING, 0, nullptr);
@@ -53,9 +53,11 @@ void BridgeProgram::run()
 			{
 				std::wstring_convert<std::codecvt_utf8<wchar_t>> conv;
 
-				std::wstring postData = L"/sensor/add?sensor_value=" + conv.from_bytes(readBuffer);
+				readBuffer[bytesRead - 1] = '\0';
+				std::wstring postData = L"/add?sensor_value=" + conv.from_bytes(readBuffer);
 				hRequest = WinHttpOpenRequest(hConnect, L"GET", postData.c_str(), NULL, WINHTTP_NO_REFERER,
 					WINHTTP_DEFAULT_ACCEPT_TYPES, 0);
+				
 				BOOL results = WinHttpSendRequest(hRequest, WINHTTP_NO_ADDITIONAL_HEADERS, 0, WINHTTP_NO_REQUEST_DATA, 0, 0, 0);
 				if (results)
 					results = WinHttpReceiveResponse(hRequest, nullptr);
